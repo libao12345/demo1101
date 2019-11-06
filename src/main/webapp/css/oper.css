@@ -1,0 +1,54 @@
+@charset "UTF-8";
+header {
+    position: relative;
+    width: 100%;
+    margin-top: 2px;
+}
+header ul li:first-child {
+    margin-left: 15px;
+}
+header ul li a {
+    cursor: pointer !important;
+}
+article {
+    position: relative;
+    width: 420px;
+    margin: 80px auto 0px;
+}
+article dl {
+    padding: 0px;
+    margin: 0px;
+}
+
+article dl dt {
+    font-size: 16px;
+    letter-spacing: 3px;
+    text-indent: 20px;
+    padding-bottom: 3px;
+    margin: 16px 0px;
+    border-bottom: solid 1px #cccccc;
+}
+
+article dl dd {
+    margin: 16px 30px;
+}
+
+article dl dd label {
+    display: inline-block;
+    width: 60px;
+}
+
+article dl dd .input-size {
+    width: 280px !important;
+}
+
+article dl dd .input-radio {
+    margin-left: 50px;
+}
+
+article dl dd.btns {
+    text-align: center;
+}
+article dl dd.btns input {
+    margin: 20px 10px 0px;
+}
