@@ -94,7 +94,7 @@
                 <th>性别</th>
                 <th>操作时间</th>
             </tr>
-            <c:forEach items="${list}" var="user" varStatus="st">
+            <c:forEach items="${pageInfo.list}" var="user" varStatus="st">
                 <tr>
                     <td><input type="checkbox" name="id" value="${user.userId}"></td>
                     <td>${st.count}</td>
@@ -103,7 +103,7 @@
                     <td><fmt:formatDate value="${user.operTime}" pattern="yyyy年MM月dd日 HH:mm:ss" /></td>
                 </tr>
             </c:forEach>
-            <c:if test="${fn:length(list)==0}">
+            <c:if test="${fn:length(pageInfo.list)==0}">
                 <tr>
                     <td colspan="6" align="center">未查找到数据!</td>
                 </tr>
@@ -117,13 +117,17 @@
             <input type="button" value="修 改" class="btn btn-success" onclick="update();" />
             <input type="button" value="删 除" class="btn btn-danger" onclick="deleting();" />
         </section>
-        <section class="col-xs-12 col-sm-4">共-3-行 共-1-页 当前第-1-页</section>
+        <section class="col-xs-12 col-sm-4">共-${pageInfo.total}-行 共-${pageInfo.pages}-页 当前第-${pageInfo.isFirstPage?1:pageInfo.pageNum}-页</section>
         <section class="col-xs-12 col-sm-4">
             <ul class="pager">
-                <li><a href="#">首&emsp;页</a></li>
-                <li><a href="#">上一页</a></li>
-                <li><a href="#">下一页</a></li>
-                <li><a href="#">尾&emsp;页</a></li>
+                <li><a href="userquery.html?pageNo=${pageInfo.isFirstPage?1:-1}">首&emsp;页</a></li>
+                <c:if test="${pageInfo.hasPreviousPage}">
+                    <li><a href="userquery.html?pageNo=${pageInfo.pageNum-1}">上一页</a></li>
+                </c:if>
+                <c:if test="${pageInfo.hasNextPage}">
+                    <li><a href="userquery.html?pageNo=${pageInfo.pageNum+1}">下一页</a></li>
+                </c:if>
+                <li><a href="userquery.html?pageNo=${pageInfo.isLastPage?-1:pageInfo.pages}">尾&emsp;页</a></li>
             </ul>
         </section>
     </section>

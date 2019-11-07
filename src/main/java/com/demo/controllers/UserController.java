@@ -2,9 +2,12 @@ package com.demo.controllers;
 
 import com.demo.database.data.TDemoUser;
 import com.demo.services.IUserService;
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -23,11 +26,16 @@ public class UserController {
     private IUserService iuserService;
 
     @RequestMapping("/userquery.html")
-    public String query(String susername, Model model){
+    public String query(String susername, ModelMap model,  @RequestParam(defaultValue="1",required=true,value="pageNo") Integer pageNo){
         try {
+            Integer pageSize = 4; //每页大小
+            //分页查询
+            PageHelper.startPage(pageNo, pageSize);
             List<TDemoUser> list = iuserService.query();
+            PageInfo<TDemoUser> pageInfo = new PageInfo<TDemoUser>(list);
             //封装数据模型
-            model.addAttribute("list", list);
+            /*model.addAttribute("list", list);*/
+            model.addAttribute("pageInfo", pageInfo);
             return "admin/user/userlist";
         }catch (Exception e) {
             e.printStackTrace();
