@@ -43,11 +43,15 @@ public class UserController {
         }
     }
     @RequestMapping("/oneuserquery.html")
-    public String queryUser(@RequestParam("suserName") String susername, Model model){
+    public String queryUser(@RequestParam("suserName") String susername, Model model, @RequestParam(defaultValue="1",required=true,value="pageNo") Integer pageNo){
         try {
+            Integer pageSize = 4; //每页大小
+            //分页查询
+            PageHelper.startPage(pageNo, pageSize);
             List<TDemoUser> list = iuserService.queryUser(susername);
+            PageInfo<TDemoUser> pageInfo = new PageInfo<TDemoUser>(list);
             //封装数据模型
-            model.addAttribute("list", list);
+            model.addAttribute("pageInfo", pageInfo);
             return "admin/user/userlist";
         }catch (Exception e) {
             e.printStackTrace();
@@ -65,11 +69,15 @@ public class UserController {
     }
 
     @RequestMapping("/useradd.html")
-    public String add(TDemoUser user, Model model) {
+    public String add(TDemoUser user, Model model, @RequestParam(defaultValue="1",required=true,value="pageNo") Integer pageNo) {
         try {
+            Integer pageSize = 4; //每页大小
+            //分页查询
+            PageHelper.startPage(pageNo, pageSize);
             List list = iuserService.add(user);
-            //封装模型数据
-            model.addAttribute("list", list);
+            PageInfo<TDemoUser> pageInfo = new PageInfo<TDemoUser>(list);
+            //封装数据模型
+            model.addAttribute("pageInfo", pageInfo);
             return "admin/user/userlist";
         } catch (Exception e) {
             e.printStackTrace();
@@ -91,11 +99,15 @@ public class UserController {
     }
 
     @RequestMapping("/userupdate.html")
-    public String update(TDemoUser user, Model model) {
+    public String update(TDemoUser user, Model model, @RequestParam(defaultValue="1",required=true,value="pageNo") Integer pageNo) {
         try {
+            Integer pageSize = 4; //每页大小
+            //分页查询
+            PageHelper.startPage(pageNo, pageSize);
             List list = iuserService.update(user);
-            //封装模型数据
-            model.addAttribute("list", list);
+            PageInfo<TDemoUser> pageInfo = new PageInfo<TDemoUser>(list);
+            //封装数据模型
+            model.addAttribute("pageInfo", pageInfo);
             return "admin/user/userlist";
         } catch (Exception e) {
             e.printStackTrace();
@@ -103,10 +115,15 @@ public class UserController {
         }
     }
     @RequestMapping("/userdelete.html")
-    public String delete(@RequestParam("id") String id, Model model) {
+    public String delete(@RequestParam("id") String id, Model model, @RequestParam(defaultValue="1",required=true,value="pageNo") Integer pageNo) {
         try{
+            Integer pageSize = 4; //每页大小
+            //分页查询
+            PageHelper.startPage(pageNo, pageSize);
             List list = iuserService.delete(id);
-            model.addAttribute("list", list);
+            PageInfo<TDemoUser> pageInfo = new PageInfo<TDemoUser>(list);
+            //封装数据模型
+            model.addAttribute("pageInfo", pageInfo);
             return "admin/user/userlist";
         }catch (Exception e) {
             e.printStackTrace();

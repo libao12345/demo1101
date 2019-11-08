@@ -39,7 +39,7 @@
         <li parentId="2"><a href="javascript:void(0);" target="mainFrame">制度</a></li>
         <li id="3" class="active" role="last"><a href="javascript:void(0);">系统管理</a></li>
         <li parentId="3" role="last"><a href="userquery.html" target="mainFrame">用户管理</a></li>
-        <li parentId="3" role="last"><a href="javascript:void(0);" target="mainFrame">角色管理</a></li>
+        <li parentId="3" role="last"><a href="rolequery.html" target="mainFrame">角色管理</a></li>
         <li parentId="3" role="last"><a href="javascript:void(0);" target="mainFrame">权限管理</a></li>
       </ul>
     </aside>

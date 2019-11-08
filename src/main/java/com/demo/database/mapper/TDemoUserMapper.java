@@ -6,7 +6,7 @@ import org.apache.ibatis.annotations.*;
 import java.util.List;
 
 /**
- * 数据库访问映射接口
+ * 数据库访问用户表映射接口
  * @author Libao
  * @version 1.0.0
  * @createTime 2019年11月04日 10:56：07
