@@ -6,6 +6,7 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -33,6 +34,13 @@
                 <dd class="form-group">
                     <label>性别:</label><input type="radio" name="userGender" value="男" checked />男
                     <input type="radio" name="userGender" value="女" class="input-radio" />女
+                </dd>
+                <dd class="form-group">
+                    <label>角色:</label><select name="tdemoRole.roleId">
+                        <c:forEach items="${roleList}" var="role">
+                            <option value="${role.roleId}">${role.roleName}</option>
+                        </c:forEach>
+                    </select>
                 </dd>
                 <dd class="btns">
                     <input type="submit" value="确 定" class="btn btn-primary input-sm" />

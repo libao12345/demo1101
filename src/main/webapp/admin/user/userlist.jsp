@@ -92,6 +92,7 @@
                 <th>序号</th>
                 <th>用户名</th>
                 <th>性别</th>
+                <th>角色名称</th>
                 <th>操作时间</th>
             </tr>
             <c:forEach items="${pageInfo.list}" var="user" varStatus="st">
@@ -100,6 +101,7 @@
                     <td>${st.count}</td>
                     <td>${user.userName}</td>
                     <td>${user.userGender}</td>
+                    <td>${user.tdemoRole.roleName}</td>
                     <td><fmt:formatDate value="${user.operTime}" pattern="yyyy年MM月dd日 HH:mm:ss" /></td>
                 </tr>
             </c:forEach>

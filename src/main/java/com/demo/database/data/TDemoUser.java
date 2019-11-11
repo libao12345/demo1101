@@ -16,6 +16,15 @@ public class TDemoUser implements Serializable {
     private String userPassword; //密码
     private String userGender; //性别
     private Timestamp operTime; //操作时间
+    private TDemoRole tdemoRole; //角色
+
+    public TDemoRole getTdemoRole() {
+        return tdemoRole;
+    }
+
+    public void setTdemoRole(TDemoRole tdemoRole) {
+        this.tdemoRole = tdemoRole;
+    }
 
     public String getPrimaryKey() {
         return "userId";

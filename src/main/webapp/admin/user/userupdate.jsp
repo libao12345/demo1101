@@ -32,6 +32,7 @@
                     <input type="hidden" name="userId" value="${user.userId}" />
                     <input type="hidden" name="userPassword" value="${user.userPassword}" />
                     <input type="hidden" name="userGender" value="${user.userGender}" />
+                    <%--<input type="hidden" name="tdemoRole" value="${user.tdemoRole.roleId}" />--%>
                 </dd>
                 <dd class="btns">
                     <input type="submit" value="确 定" class="btn btn-primary input-sm" />

@@ -9,16 +9,16 @@ import java.sql.Timestamp;
  */
 public class TDemoRole {
 
-    private Integer roleId; //角色ID
+    private String roleId; //角色ID
     private String roleName; //角色名称
     private String roleDescribe; //角色描述
     private Timestamp operTime; //操作时间
 
-    public Integer getRoleId() {
+    public String getRoleId() {
         return roleId;
     }
 
-    public void setRoleId(Integer roleId) {
+    public void setRoleId(String roleId) {
         this.roleId = roleId;
     }
 

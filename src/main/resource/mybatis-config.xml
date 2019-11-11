@@ -4,6 +4,13 @@
         "http://mybatis.org/dtd/mybatis-3-config.dtd">
 
 <configuration>
+
+    <!-- 设置mybatis相关属性，作用：用于启用或禁用相关功能 -->
+    <!--<settings>
+        &lt;!&ndash; 启用log4j &ndash;&gt;
+        <setting name="logImpl" value="LOG4J"/>
+    </settings>-->
+
     <!-- 取别名 -->
     <typeAliases>
         <package name="com.demo.database.data"/>

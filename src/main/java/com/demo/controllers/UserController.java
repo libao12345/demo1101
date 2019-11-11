@@ -1,6 +1,8 @@
 package com.demo.controllers;
 
+import com.demo.database.data.TDemoRole;
 import com.demo.database.data.TDemoUser;
+import com.demo.services.IRoleService;
 import com.demo.services.IUserService;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
@@ -24,6 +26,10 @@ public class UserController {
 
     @Resource
     private IUserService iuserService;
+    @Resource
+    private IRoleService iroleService;
+
+    private TDemoRole role;
 
     @RequestMapping("/userquery.html")
     public String query(String susername, ModelMap model,  @RequestParam(defaultValue="1",required=true,value="pageNo") Integer pageNo){
@@ -64,8 +70,16 @@ public class UserController {
      * @return
      */
     @RequestMapping("/useraddview.html")
-    public String addView() {
-        return "admin/user/useradd";
+    public String addView(Model model) {
+        try {
+            //获得角色数据列表
+            List<TDemoRole> roleList = iroleService.query();
+            model.addAttribute("roleList", roleList);
+            return "admin/user/useradd";
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return "error";
     }
 
     @RequestMapping("/useradd.html")
@@ -89,6 +103,7 @@ public class UserController {
     public String updateView(@RequestParam("id") String id, Model model) {
         try {
             TDemoUser user = iuserService.getById(id);
+            role = user.getTdemoRole();
             //封装模型数据
             model.addAttribute("user", user);
             return "admin/user/userupdate";
@@ -104,8 +119,9 @@ public class UserController {
             Integer pageSize = 4; //每页大小
             //分页查询
             PageHelper.startPage(pageNo, pageSize);
+            user.setTdemoRole(role);
             List list = iuserService.update(user);
-            PageInfo<TDemoUser> pageInfo = new PageInfo<TDemoUser>(list);
+            PageInfo<TDemoUser> pageInfo = new PageInfo<>(list);
             //封装数据模型
             model.addAttribute("pageInfo", pageInfo);
             return "admin/user/userlist";
