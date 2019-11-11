@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:tx="http://www.springframework.org/schema/tx"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://www.springframework.org/schema/context
+       http://www.springframework.org/schema/context/spring-context.xsd
+       http://www.springframework.org/schema/tx
+       http://www.springframework.org/schema/tx/spring-tx.xsd
+       http://www.springframework.org/schema/aop
+        http://www.springframework.org/schema/aop/spring-aop.xsd
+">
+
+    <!-- 定义数据源 -->
+    <bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource" >
+        <property name="driverClassName" value="com.mysql.cj.jdbc.Driver" ></property>
+        <property name="url" value="jdbc:mysql://localhost:3306/demo0912?serverTimezone=Asia/Shanghai" ></property>
+        <property name="username" value="root" ></property>
+        <property name="password" value="root" ></property>
+    </bean>
+
+    <!-- 定义会话工厂 -->
+    <bean id="sessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+        <!-- 注入数据源bean -->
+        <property name="dataSource" ref="dataSource" />
+        <!-- 设置"映射文件"路径 -->
+        <property name="configLocation" value="classpath:mybatis-config.xml" />
+    </bean>
+
+    <!-- 定义映射扫描配置器 -->
+    <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+        <!-- 注入会话工厂bean -->
+        <property name="sqlSessionFactoryBeanName" value="sessionFactory" ></property>
+        <!-- 设置映射接口包路径 -->
+        <property name="basePackage" value="com.demo.database.mapper" />
+    </bean>
+
+    <!-- 定义事务管理器 -->
+    <bean id="tracnsactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+        <property name="dataSource" ref="dataSource"></property>
+    </bean>
+
+    <!-- 配置事务特性（隔离级别和传播行为） -->
+    <tx:advice id="txAdvice" transaction-manager="tracnsactionManager">
+        <tx:attributes>
+            <!-- 指定事务监控管理的方法 -->
+            <tx:method name="query*" isolation="DEFAULT" propagation="REQUIRED" />
+            <tx:method name="add*" isolation="DEFAULT" propagation="REQUIRED" />
+            <tx:method name="update*" isolation="DEFAULT" propagation="REQUIRED" />
+            <tx:method name="delete*" isolation="DEFAULT" propagation="REQUIRED" />
+        </tx:attributes>
+    </tx:advice>
+
+    <!-- 配置切面，使用切面管理事务 -->
+    <aop:config>
+        <!-- 切入点配置 -->
+        <aop:pointcut id="point" expression="execution(* com.demo.services.impl.*.*(..))"/>
+        <aop:advisor advice-ref="txAdvice" pointcut-ref="point" />
+    </aop:config>
+
+</beans>
